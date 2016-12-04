@@ -14,8 +14,7 @@ mqttUser = "none"
 mqttPass = "none"
 mqttChannel = "/relay/1"
  
-deviceID="TRAINZ"
-roomID="1"
+deviceID=node.chipid()
  
 wifi.setmode(wifi.STATION)
 wifi.sta.config (wifi_ssid, wifi_password)

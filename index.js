@@ -2,7 +2,6 @@
  * This HAP device connects to defined or default mqtt broker/channel and responds to brightness.
  */
 
-// npm install request --save
 var request = require('request');
 
 var Service, Characteristic;
