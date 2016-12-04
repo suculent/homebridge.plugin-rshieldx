@@ -9,7 +9,7 @@ var Service, Characteristic;
 
 // should go from config
 var default_broker_address = 'mqtt://localhost'
-var default_mqtt_channel = "/relay"
+var default_mqtt_channel = "/relay/1"
 
 var mqtt = require('mqtt')
 var mqttClient = null; // will be non-null if working
@@ -52,46 +52,52 @@ function init_mqtt(broker_address, channel) {
     var that = this
 
     mqttClient.on('connect', function () {
-      console.log("MQTT connected, subscribing to: " + channel)
-      mqttClient.subscribe(broker_address + channel)
+      var subscription = channel + '/state'
+      console.log("MQTT connected, subscribing to monitor: " + subscription )
+      mqttClient.subscribe(subscription)      
     })
 
     mqttClient.on('error', function () {
-      console.log("MQTT connected, subscribing to: " + channel)
-      mqttClient.subscribe(broker_address + channel)
+      console.log("MQTT error")
       this.brightness = -1
     })
 
     mqttClient.on('offline', function () {
-      console.log("MQTT connected, subscribing to: " + channel)
-      mqttClient.subscribe(broker_address + channel)
+      console.log("MQTT offline")
       this.brightness = -1
     })
 
     mqttClient.on('message', function (topic, message) {
+      console.log("topic: " + topic.toString())
       console.log("message: " + message.toString())
 
-      var pin = 0
+      if (topic == channel + "/state") {
+        if (message == "ON") {
+          this.state = 1;
+          this.brightness = 1;
+        } else {
+          this.state = 0;
+          this.brightness = 0;
+        }
 
-      if (topic == channel) {
-        this.state = message;
-        this.brightness = parseInt(message)
-            
-        this.getServices[0]
-        .getCharacteristic(Characteristic.ContactSensorState)
+        /* works but creates loop (maybe even when not sent from another device)
+        RelayShield.prototype.getServices()[0]
+        .getCharacteristic(Characteristic.On)
         .setValue(this.state);
+        */
 
         console.log("[processing] message " + message)
-      }      
+      }     
     })
   }
 
 // Keeps brightness
 RelayShield.prototype.setPowerState = function(powerOn, callback, context) {
-    this.log('setPowerState: %s', String(powerOn));
+    console.log('setPowerState: %s', String(powerOn));
     if(context !== 'fromSetValue') {        
-        if (mqttClient) {  
-            if (powerOn) {
+        if (mqttClient) { 
+            this.log('publishing ON/OFF to: %s', this.mqttChannel); 
+            if (powerOn) {                
                 mqttClient.publish(this.mqttChannel, "ON");
             } else {
                 mqttClient.publish(this.mqttChannel, "OFF");
@@ -102,7 +108,7 @@ RelayShield.prototype.setPowerState = function(powerOn, callback, context) {
 }
 
 RelayShield.prototype.getPowerState = function(callback) {
-    this.log('getPowerState callback(null, '+this.brightness+')');
+    console.log('getPowerState callback(null, '+this.brightness+')');
     var status = 0
     if (this.brightness > 0) {
         callback(null, 1);
