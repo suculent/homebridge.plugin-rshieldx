@@ -1,6 +1,10 @@
-# homebridge-plugin-rshieldx
+# homebridge-plugin-rshieldX
 
 This is simple [homebridge](https://github.com/nfarina/homebridge) plugin for Wemos D1 with single Relay Shield and additional accessories.
+
+Purpose of this implementation is to drive a simple on/off LED light in kids’ wardrobe closet. As soon as someone enters in, PIR sensor turns off the light. Light gets turned off after a timer when PIR sensor does not detect anything.
+
+Whole system reports to Homebridge through MQTT and can be controlled from iOS device through respective Homebridge plugin.
 
 ## Prerequisites
 
@@ -8,12 +12,14 @@ This is simple [homebridge](https://github.com/nfarina/homebridge) plugin for We
 * Wemos D1 with NodeMCU firmware
 * Wemos Relay shield or any other relay conencted to pin D1 (configurable)
 * Homebridge on local WiFi
+* Any relay-controlled light, in this case a 12V LED Strip (separate power)
+* PIR Sensor (tested with HC-SR501 preferably, would require adjustments for HC-505)
 
 ## Installation
 
 ```
     git clone https://github.com/suculent/homebridge-plugin-rshieldx.git
-    cd homebridge-plugin-rshield
+    cd homebridge-plugin-rshieldx
     npm install -g .
 ```
 

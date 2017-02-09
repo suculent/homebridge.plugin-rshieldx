@@ -16,7 +16,7 @@ var mqttClient = null; // will be non-null if working
 module.exports = function(homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerAccessory("homebridge-rshieldx", "RelayShieldExtendedExtended", RelayShieldExtended);
+    homebridge.registerAccessory("homebridge-rshieldx", "RelayShieldExtended", RelayShieldExtended);
 }
 
 function RelayShieldExtended(log, config) {
@@ -120,6 +120,7 @@ RelayShieldExtended.prototype.getServices = function() {
 
     var lightbulbService = new Service.Lightbulb(this.name);
     var informationService = new Service.AccessoryInformation();
+    // TODO: add proximityService as a security measure
 
     informationService
       .setCharacteristic(Characteristic.Manufacturer, "Page 42")

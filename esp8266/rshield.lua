@@ -123,6 +123,7 @@ function pir_check(report)
     report = mqtt_connected
      -- PIR Check
     local status = gpio.read(pirPin);
+    print("PIR pin state: " .. status)
     if status == gpio.LOW then
         print("PIR state: CLEAR")
         relay_off()
