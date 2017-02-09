@@ -1,18 +1,17 @@
 {
-  "name": "homebridge-rshield",
+  "name": "homebridge-rshieldx",
   "version": "0.0.1",
-  "description": "Wemos D1 Relay Sheld Control plugin for Homebridge",
+  "description": "Wemos D1 Extended Relay Sheld Control plugin for Homebridge",
   "main": "index.js",
   "author": "Matej Sychra",
   "license": "ISC",
   "dependencies": {
-    "mdns": "^2.3.3",
     "mqtt": "^2.0.1",
     "request": "^2.79.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/suculent/homebridge-plugin-rshield.git"
+    "url": "https://github.com/suculent/homebridge-plugin-rshieldx.git"
   },
   "keywords": [
     "homebridge-plugin"

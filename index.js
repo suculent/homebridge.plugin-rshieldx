@@ -16,10 +16,10 @@ var mqttClient = null; // will be non-null if working
 module.exports = function(homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerAccessory("homebridge-rshield", "RelayShield", RelayShield);
+    homebridge.registerAccessory("homebridge-rshieldx", "RelayShieldExtended", RelayShieldExtended);
 }
 
-function RelayShield(log, config) {
+function RelayShieldExtended(log, config) {
     this.log = log;
 
     this.name = config['name'] || "Relay Switch";
@@ -80,7 +80,7 @@ function init_mqtt(broker_address, channel) {
         }
 
         /* works but creates loop (maybe even when not sent from another device)
-        RelayShield.prototype.getServices()[0]
+        RelayShieldExtended.prototype.getServices()[0]
         .getCharacteristic(Characteristic.On)
         .setValue(this.state);
         */
@@ -91,7 +91,7 @@ function init_mqtt(broker_address, channel) {
   }
 
 // Keeps brightness
-RelayShield.prototype.setPowerState = function(powerOn, callback, context) {
+RelayShieldExtended.prototype.setPowerState = function(powerOn, callback, context) {
     console.log('setPowerState: %s', String(powerOn));
     if(context !== 'fromSetValue') {        
         if (mqttClient) { 
@@ -106,7 +106,7 @@ RelayShield.prototype.setPowerState = function(powerOn, callback, context) {
     }
 }
 
-RelayShield.prototype.getPowerState = function(callback) {
+RelayShieldExtended.prototype.getPowerState = function(callback) {
     console.log('getPowerState callback(null, '+this.brightness+')');
     var status = 0
     if (this.brightness > 0) {
@@ -116,10 +116,11 @@ RelayShield.prototype.getPowerState = function(callback) {
     }
 }
 
-RelayShield.prototype.getServices = function() {
+RelayShieldExtended.prototype.getServices = function() {
 
     var lightbulbService = new Service.Lightbulb(this.name);
     var informationService = new Service.AccessoryInformation();
+    // TODO: add proximityService as a security measure
 
     informationService
       .setCharacteristic(Characteristic.Manufacturer, "Page 42")
