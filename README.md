@@ -1,6 +1,6 @@
-# homebridge-plugin-rshield
+# homebridge-plugin-rshieldx
 
-This is simple [homebridge](https://github.com/nfarina/homebridge) plugin for Wemos D1 with single Relay Shield.
+This is simple [homebridge](https://github.com/nfarina/homebridge) plugin for Wemos D1 with single Relay Shield and additional accessories.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ This is simple [homebridge](https://github.com/nfarina/homebridge) plugin for We
 ## Installation
 
 ```
-    git clone https://github.com/suculent/homebridge-plugin-rshield.git
+    git clone https://github.com/suculent/homebridge-plugin-rshieldx.git
     cd homebridge-plugin-rshield
     npm install -g .
 ```
@@ -24,3 +24,7 @@ Restart your Wemos. It should start listening to your MQTT channel. You can test
 Edit your Homebridge configuration based on sample-config.json file.
 
 Restart your homebridge and add the new device.
+
+---
+
+TODO: Add documentation for PIR and LEDs when done
