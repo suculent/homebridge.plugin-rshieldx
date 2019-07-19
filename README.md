@@ -1,5 +1,7 @@
 # homebridge-plugin-rshieldX
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/suculent/homebridge.plugin-rshieldx.svg)](https://greenkeeper.io/)
+
 This is simple [homebridge](https://github.com/nfarina/homebridge) plugin for Wemos D1 with single Relay Shield and additional accessories.
 
 Purpose of this implementation is to drive a simple on/off LED light in kids’ wardrobe closet. As soon as someone enters in, PIR sensor turns off the light. Light gets turned off after a timer when PIR sensor does not detect anything.
